@@ -1,6 +1,121 @@
 # 对于凡人修仙传的graphrag抽取和实践
 
-李鲁鲁fork了这个项目，并且
+- 李鲁鲁fork了这个项目，并且尝试将数据替换为凡人修仙传
+- 原始的动机，是希望结合GraphRAG，每次询问一个修仙概念，然后建立修仙概念和现实世界自然科学的联系
+- 逐步编写《修仙世界的自然原理》杂记
+- 李鲁鲁把项目调整到可以在colab运行
+
+
+# 在colab上建立graphrag的index
+
+实际上可以直接访问这个链接并且运行
+
+## 在colab上配置环境
+
+```bash
+!git clone https://github.com/LC1332/graphrag-practice-chinese
+%cd ./graphrag-practice-chinese
+# 安装项目运行所需的依赖
+!pip install -q -r ./requirements.txt
+# 创建 input 目录，用于构建索引的文本文件默认存放于该目录下，可以按需修改 settings.yaml 文件中的 input 部分来指定路径
+!mkdir ./input
+
+# 这一命令将在 graphrag-practice-chinese 目录中创建两个文件：.env 和 settings.yaml
+!python -m graphrag.index --init --root ./
+```
+
+这个和原项目是一致的，只不过colab要用！作为行首来进行运行。
+
+## 将GLM的key导入到.env文件
+
+```python
+from google.colab import userdata
+glm_api_key = userdata.get('GLM_API_KEY')
+
+# 将 GLM_API_KEY={glm_api_key}写入到.env
+with open(".env", "w") as f:
+  f.write(f"GLM_API_KEY={glm_api_key}")
+```
+
+这里需要你的colab中配置了GLM_API_Key，在左侧点击小钥匙就可以配置。
+
+## 用settings.demo.yaml覆盖settings.yaml
+
+```python
+import shutil
+import os
+
+# 覆盖 settings.yaml
+if os.path.exists("./settings.demo.yaml"):
+  shutil.copyfile("./settings.demo.yaml", "./settings.yaml")
+  print("settings.yaml has been overwritten by settings.demo.yaml")
+else:
+  print("settings.demo.yaml not found, settings.yaml remains unchanged.")
+```
+
+这里因为我GLM充了不少钱，所以模型我选用了GLM-4-Air，如果你没有充钱，或者钱比较少，可以去用免费的GLM-4-Flash。
+
+## 将输入文件复制到input
+
+```python
+import zipfile
+import os
+
+# 定义压缩文件路径和解压目标路径
+zip_file_path = "lulu_exp/fanren_700.zip"
+extract_path = "input"
+
+# 创建解压目标目录，如果不存在
+os.makedirs(extract_path, exist_ok=True)
+
+# 打开压缩文件
+with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+    # 提取所有文件到目标目录
+    zip_ref.extractall(extract_path)
+```
+
+这里我选取到截止2025年3月接近动画片的外海剧情的小说前700章。
+
+你可以在这里把input里面的文件替换为你自己想抽取GraphRAG的文件。
+
+直觉来说，对小说进行合理的分章可以提升效果。
+
+## 进行抽取
+
+```bash
+!python -m graphrag.index --root ./
+```
+
+我700章在colab上运行了大约50分钟。
+
+## 将抽取结果保存到zip文件
+
+
+```python
+import zipfile
+import os
+
+def zipdir(path, ziph):
+    # ziph is zipfile handle
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file), 
+                       os.path.relpath(os.path.join(root, file), 
+                                       os.path.join(path, '..')))
+
+def create_zip():
+    zipf = zipfile.ZipFile('all_fanren_output_700.zip', 'w', zipfile.ZIP_DEFLATED)
+    zipdir('cache', zipf)
+    zipdir('output', zipf)
+    zipf.close()
+
+create_zip()
+```
+
+---
+
+下面是原项目
+
 
 # graphrag-practice-chinese
 
