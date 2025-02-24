@@ -40,6 +40,9 @@ def extract_and_save_chapters(file_path, output_dir):
                 current_content = []  # 重置当前章节内容
 
             current_chapter = line.strip()  # 更新当前章节名
+
+            if count > 700:
+                return
         else:
             if current_chapter:
                 current_content.append(line)
@@ -54,7 +57,7 @@ def save_chapter(chapter_name, content, output_dir, save_index):
     os.makedirs(output_dir, exist_ok=True)
 
     # 以4位save_index + chapter_name作为文件名
-    file_name = f"{save_index:04d}_{chapter_name}.txt"
+    file_name = f"{save_index:04d}_book.txt"
     # file_name = f"{chapter_name}.txt"
 
 

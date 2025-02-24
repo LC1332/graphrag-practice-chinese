@@ -6,7 +6,7 @@
 encoding_model: cl100k_base
 skip_workflows: []
 llm:
-  api_key: ********************** # your API key
+  api_key: ${GLM_API_KEY} # your API key
   type: openai_chat # or azure_openai_chat
   model: glm-4-air
   model_supports_json: false # recommended if this is available for your model.
@@ -23,7 +23,7 @@ llm:
   # sleep_on_rate_limit_recommendation: true # whether to sleep when azure suggests wait-times
   # concurrent_requests: 25 # the number of parallel inflight requests that may be made
   # temperature: 0 # temperature for sampling
-  top_p: 0.9 # top-p sampling
+  top_p: 0.1 # top-p sampling
   # n: 1 # Number of completions to generate
 
 parallelization:
@@ -37,7 +37,7 @@ embeddings:
   async_mode: threaded # or asyncio
   # target: required # or all
   llm:
-    api_key: ********************** # your API key
+    api_key: ${GLM_API_KEY} # your API key
     type: openai_embedding # or azure_openai_embedding
     model: embedding-3
     api_base: https://open.bigmodel.cn/api/paas/v4
@@ -61,7 +61,7 @@ chunks:
 input:
   type: file # or blob
   file_type: text # or csv
-  base_dir: "input/hongloumeng"
+  base_dir: "input"
   file_encoding: utf-8
   file_pattern: ".*\\.txt$"
 
