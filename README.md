@@ -5,6 +5,13 @@
 - 逐步编写《修仙世界的自然原理》杂记
 - 李鲁鲁把项目调整到可以在colab运行
 
+## QuickStart
+
+
+
+## 目录
+
+
 
 # 在colab上建立graphrag的index
 
