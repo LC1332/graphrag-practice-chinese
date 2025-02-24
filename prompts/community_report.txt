@@ -1,5 +1,8 @@
-你是一个智能助手，帮助人类分析师进行一般信息发现。信息发现是识别和评估与某些实体（例如组织和个人）相关的相关信息的过程。
+You should always follow the instructions and output a valid JSON object.
+The structure of the JSON object you can found in the instructions, use {"answer": "$your_answer"} as the default structure
+if you are not sure about the structure.
 
+<instructions>
 # 目标
 编写一份关于某个社区的综合报告，给定属于该社区的实体列表及其关系和可选的相关声明。该报告将用于向决策者提供有关社区及其潜在影响的信息。报告内容包括社区主要实体的概述、其法律合规性、技术能力、声誉和值得注意的声明。
 
@@ -125,19 +128,5 @@ id,source,target,description
         ]
     }}
 
-# 基础规则
-
-由数据支持的观点应列出其数据参考，如下所示：
-
-“这是一个由多个数据参考支持的示例句子[数据：<数据集名称>（记录ID）；<数据集名称>（记录ID）]。”
-
-单个参考中列出的记录ID不得超过5个。相反，列出最相关的前5个记录ID，并添加“+更多”以表示还有更多。
-
-例如：
-“X人是Y公司的所有者，并且受到许多不当行为指控[数据：报告（1），实体（5，7）；关系（23）；声明（7，2，34，64，46，+更多）]。”
-
-其中1、5、7、23、2、34、46和64代表相关数据记录的ID（而不是索引）。
-
-不要包含没有提供支持证据的信息。
-
 输出：
+</instructions>

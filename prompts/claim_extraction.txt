@@ -1,5 +1,5 @@
--目标活动-
-你是一个智能助手，帮助人类分析师分析文本文件中针对某些实体的声明。
+-Target activity-
+You are an intelligent assistant that helps a human analyst to analyze claims against certain entities presented in a text document.
 
 -目标-
 给定一个可能与此活动相关的文本文件、一个实体规范和一个声明描述，提取所有符合实体规范的实体以及针对这些实体的所有声明。
@@ -22,30 +22,30 @@
 
 4. 完成后，输出 {completion_delimiter}
 
--示例-
-示例1:
+-Examples-
+Example 1:
 实体规范: organization
 声明描述: 与实体相关的红旗
 文本: 根据2022/01/10的一篇文章，A公司因在多个政府机构B发布的公开招标中串标而被罚款。该公司由C人拥有，C人被怀疑在2015年从事腐败活动。
-输出:
+Output:
 
 (A公司{tuple_delimiter}政府机构B{tuple_delimiter}反竞争行为{tuple_delimiter}TRUE{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}根据2022/01/10发表的一篇文章，A公司因在多个政府机构B发布的公开招标中串标而被罚款{tuple_delimiter}根据2022/01/10发表的一篇文章，A公司因在多个政府机构B发布的公开招标中串标而被罚款。)
 {completion_delimiter}
 
-示例2:
-实体规范: A公司, C人
-声明描述: 与实体相关的红旗
-文本: 根据2022/01/10的一篇文章，A公司因在多个政府机构B发布的公开招标中串标而被罚款。该公司由C人拥有，C人被怀疑在2015年从事腐败活动。
-输出:
+Example 2:
+Entity specification: Company A, Person C
+Claim description: red flags associated with an entity
+Text: According to an article on 2022/01/10, Company A was fined for bid rigging while participating in multiple public tenders published by Government Agency B. The company is owned by Person C who was suspected of engaging in corruption activities in 2015.
+Output:
 
 (A公司{tuple_delimiter}政府机构B{tuple_delimiter}反竞争行为{tuple_delimiter}TRUE{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}根据2022/01/10发表的一篇文章，A公司因在多个政府机构B发布的公开招标中串标而被罚款{tuple_delimiter}根据2022/01/10发表的一篇文章，A公司因在多个政府机构B发布的公开招标中串标而被罚款。)
 {record_delimiter}
 (C人{tuple_delimiter}NONE{tuple_delimiter}腐败{tuple_delimiter}SUSPECTED{tuple_delimiter}2015-01-01T00:00:00{tuple_delimiter}2015-12-30T00:00:00{tuple_delimiter}C人被怀疑在2015年从事腐败活动{tuple_delimiter}该公司由C人拥有，C人被怀疑在2015年从事腐败活动。)
 {completion_delimiter}
 
--真实数据-
-使用以下输入进行回答。
+-Real Data-
+Use the following input for your answer.
 实体规范: {entity_specs}
 声明描述: {claim_description}
 文本: {input_text}
-输出:
+Output:
