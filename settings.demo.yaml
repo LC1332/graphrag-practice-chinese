@@ -8,7 +8,7 @@ skip_workflows: []
 llm:
   api_key: ********************** # your API key
   type: openai_chat # or azure_openai_chat
-  model: glm-4-flash
+  model: glm-4-air
   model_supports_json: false # recommended if this is available for your model.
   max_tokens: 4000
   request_timeout: 180.0

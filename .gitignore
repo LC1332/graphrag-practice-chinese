@@ -16,3 +16,4 @@ graphrag_terminal.log
 
 # else
 .DS_Store
+/local_data

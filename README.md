@@ -1,3 +1,7 @@
+# 对于凡人修仙传的graphrag抽取和实践
+
+李鲁鲁fork了这个项目，并且
+
 # graphrag-practice-chinese
 
 `graphrag-practice-chinese`是一个 GraphRAG 的应用实例，项目特点在于提供了替换 OpenAI 模型的方法，并通过修改原有提示和切分文档的方法，提高了 GraphRAG 处理中文内容的能力。
