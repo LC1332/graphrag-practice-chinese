@@ -9,7 +9,7 @@ llm:
   api_key: ${GLM_API_KEY} # your API key
   type: openai_chat # or azure_openai_chat
   model: glm-4-air
-  model_supports_json: false # recommended if this is available for your model.
+  model_supports_json: true # recommended if this is available for your model.
   max_tokens: 4000
   request_timeout: 180.0
   api_base: https://open.bigmodel.cn/api/paas/v4
